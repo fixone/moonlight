@@ -5,7 +5,7 @@ const express = require('express')
 var router = express.Router()
 
 //helper fn to validate router is ok
-router.get('/check',(req,res)=>res.status(200).send(config.errors['OK']))
+router.get('/check',(req,res)=>res.status(200).json(config.errors['OK']))
 
 //catch all function
 router.use((req,res)=>{
