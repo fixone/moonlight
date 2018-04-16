@@ -1,0 +1,27 @@
+{
+  "name": "lnpay",
+  "version": "0.0.1",
+  "description": "Lightning Network Payment API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "lightning",
+    "network"
+  ],
+  "author": "Felix",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "knex": "^0.14.6",
+    "lightning-client": "^0.5.2-beta.8",
+    "nanoid": "^1.0.2",
+    "sqlite3": "^4.0.0"
+  },
+  "devDependencies": {
+    "eslint-config-google": "^0.9.1",
+    "nodemon": "^1.17.3"
+  }
+}

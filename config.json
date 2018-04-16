@@ -1,0 +1,24 @@
+{
+    "notAllowed":["close","listfunds","dev-listaddrs",
+        "dev-rescan-outputs","withdraw",
+        "dev-forget-channel"],
+    "rpcMountPoint":"/rpc/v1",
+    "apiMountPoint":"/api/v1",
+    "defaultTimeout":5,
+    "asyncMethods":["pay"],
+    "paramIndex":{
+        "invoice":{"msatoshi":0,"label":1,"description":2},
+        "pay":{"bolt11":0}
+    },
+    "knex": {"client":"sqlite3","connection":"sqlite.db","useNullAsDefault": true},
+    "errors":{
+        "OK":{"errorCode":0,"errorMessage":"ok"},
+        "INVOICE_AMOUNT":{"errorCode":1,"errorMessage":"need amount"},
+        "UNAUTHORIZED":{"errorCode":2,"errorMessage":"not authorized, need token, secret etc"},
+        "NOT_ALLOWED":{"errorCode":3,"errorMessage":"method not allowed"},
+        "NOT_FOUND":{"errorCode":4,"errorMessage":"method not found"},
+        "BOLT_MISSING":{"errorCode":5,"errorMessage":"need bolt11"},
+        "ERROR":{"errorCode":100,"errorMessage":"an unexpected error"}
+
+    }
+}
