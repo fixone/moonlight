@@ -1,6 +1,6 @@
 const config = require('./config')
 const ln = require('./lightning')
-
+const debug = require('debug')('app:rpc')
 const express = require('express')
 var router = express.Router()
 
@@ -36,15 +36,15 @@ router.use((req,res)=>{
         }
         
         
-        console.log("calling",method,"with args",params)
+        debug("calling %s with args %o",method,params)
 
         ln.client.call(method,params)
         .then(rx => {
-            console.log("sendig call result",rx)
+            debug("sendnig call result %o",rx)
             res.json(rx)
         })
         .catch(e => {
-            console.log("Error calling", method,":",e)
+            debug("Error calling %s:%o",method,e)
             res.status(500).json(e)
         })
     } else {

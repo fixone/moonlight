@@ -1,6 +1,6 @@
 const config = require('./config')
 const ln = require('./lightning')
-
+const debug = require('debug')('app:api')
 const nanoid = require('nanoid')
 
 const express = require('express')
@@ -34,7 +34,7 @@ router.post('/pay', (req,res) => {
         if(req.body.bolt11 != null && req.body.bolt11.length > 0) {
             ln.client.call("decodepay",[req.body.bolt11])
             .then(rx => {
-                console.log("decodepay",rx)
+                debug("decodepay %o",rx)
                 ln.client.call("pay",[req.body.bolt11, req.body.msatoshi,
                     req.body.description, req.body.riskfactor || 1.0, req.body.maxfeepercent || 1.0,config.defaultTimeout])
                 .then( prx => {
@@ -53,14 +53,14 @@ router.post('/pay', (req,res) => {
 })
 
 router.get("/invoice/:id", (req,res) => {
-    console.log("getting invoice",req.params.id)
+    debug("getting invoice %s",req.params.id)
     ln.client.call('listinvoices',[req.params.id])
     .then(rx => res.status(200).json(Object.assign({},config.errors['OK'],rx.invoices)))
     .catch(e => res.status(500).json(Object.assign({errorCode:e.error.code,errorMessage:e.error.message},e)))
 })
 
 router.get("/payment/:id", (req,res) => {
-    console.log("getting payment",req.params.id)
+    debug("getting payment %s",req.params.id)
     ln.client.call('listpayments',[req.params.id])
     .then(rx => res.status(200).json(Object.assign({},config.errors['OK'],rx.payments)))
     .catch(e => res.status(500).json(Object.assign({errorCode:e.error.code,errorMessage:e.error.message},e)))
